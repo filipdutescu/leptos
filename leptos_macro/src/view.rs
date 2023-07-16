@@ -487,7 +487,7 @@ fn element_to_tokens_ssr(
                 let value = inner_html;
 
                 holes.push(quote! {
-                  (#value).into_attribute(#cx).as_nameless_value_string().unwrap_or_default()
+                  leptos::leptos_dom::IntoAttribute::into_attribute(#value, #cx).as_nameless_value_string().unwrap_or_default()
                 })
             } else {
                 for child in &node.children {
@@ -620,7 +620,7 @@ fn attribute_to_tokens_ssr<'a>(
                 } else {
                     template.push_str("{}");
                     holes.push(quote! {
-                        &{#value}.into_attribute(#cx)
+                        &leptos::leptos_dom::IntoAttribute::into_attribute({#value}, #cx)
                             .as_nameless_value_string()
                             .map(|a| format!("{}=\"{}\"", #name, leptos::leptos_dom::ssr::escape_attr(&a)))
                             .unwrap_or_default()

@@ -342,7 +342,7 @@ fn attr_to_tokens(
                 // For client-side rendering, dynamic attributes don't need to be rendered in the template
                 // They'll immediately be set synchronously before the cloned template is mounted
                 expressions.push(quote_spanned! {
-                    span => leptos::leptos_dom::attribute_helper(leptos::wasm_bindgen::JsCast::unchecked_ref(&#el_id), #name.into(), {#value}.into_attribute(#cx))
+                    span => leptos::leptos_dom::attribute_helper(leptos::wasm_bindgen::JsCast::unchecked_ref(&#el_id), #name.into(), leptos::leptos_dom::IntoAttribute::into_attribute({#value}, #cx))
                 });
             }
         }
